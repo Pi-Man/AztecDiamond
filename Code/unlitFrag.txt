@@ -1,0 +1,20 @@
+#version 330 core
+
+in vec2 uv;
+
+in vec3 ObjectPos;
+
+out vec4 col;
+
+uniform ivec2 viewport;
+
+uniform sampler2D main_tex;
+
+void main() {
+	vec4 color = vec4(1);
+	int i = int(ObjectPos.z);
+	color.r = float(i & (8 - 1));
+	color.g = float((i >> 3) & (8 - 1));
+	color.b = float((i >> 6) & (8 - 1));
+	col = texture(main_tex, uv) * color;
+}
